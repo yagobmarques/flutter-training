@@ -43,44 +43,24 @@ class _HomeState extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Icon(Icons.money, size: 150.0, color: Colors.orange),
-                DropdownButton<String>(
-                  value: dropdownValue,
-                  isExpanded: true,
-                  iconSize: 24,
-                  iconEnabledColor: Colors.orange,
-                  elevation: 16,
-                  style: TextStyle(color: Colors.orange, fontSize: 20),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.orange,
-                  ),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownValue = newValue;
-                    });
+                TextFormField(
+                  decoration: InputDecoration(
+                      labelText: "Abreviação da empresa",
+                      labelStyle: TextStyle(color: Colors.amber),
+                      border: OutlineInputBorder()
+                      ),
+                  style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                  controller: codigoController,
+                  validator: (value){
+                    if(value.isEmpty) return "Insira uma empresa!";
                   },
-                  items: <String>[
-                    'SLED3',
-                    'RRRP3',
-                    'EALT3',
-                    "ADHM3",
-                    "AERI3",
-                    "TIET11",
-                    "BRGE11",
-                    "ALPA3"
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 ),
                 RaisedButton(
                   onPressed: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Result(dropdownValue)));
+                            builder: (context) => Result(codigoController.text.toUpperCase())));
                   },
                   color: Colors.orange,
                   textColor: Colors.white,

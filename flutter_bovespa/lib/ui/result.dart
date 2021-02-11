@@ -49,7 +49,8 @@ class Result extends StatelessWidget {
                             style: TextStyle(color: Colors.red, fontSize: 25)),
                       );
                     } else {
-                      String name =
+                      try{
+                         String name =
                           snapshot.data["results"][dropdownValue]["name"];
                       String name_company = snapshot.data["results"]
                           [dropdownValue]["company_name"];
@@ -75,7 +76,15 @@ class Result extends StatelessWidget {
                               buildTextFormField("Variação", change_percent.toString())
                             ],
                           ));
+                    } catch{
+                      return Center(
+                        child: Text("Erro ao carregar os dados...",
+                            style: TextStyle(color: Colors.red, fontSize: 25)),
+                      );
                     }
+                      }
+                      
+                     
                 }
               },
             )

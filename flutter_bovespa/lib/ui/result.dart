@@ -76,7 +76,7 @@ class Result extends StatelessWidget {
                               buildTextFormField("Variação", change_percent.toString())
                             ],
                           ));
-                    } catch{
+                    }  catch (error){
                       return Center(
                         child: Text("Erro ao carregar os dados...",
                             style: TextStyle(color: Colors.red, fontSize: 25)),

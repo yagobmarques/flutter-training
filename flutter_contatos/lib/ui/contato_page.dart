@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -103,21 +104,21 @@ class _ContatoPaginaState extends State<ContatoPagina> {
                       image: DecorationImage(
                           image: _contatoEditado.img != null
                               ? FileImage(File(_contatoEditado.img))
-                              : AssetImage("Images/user.png"))
-                  ),
+                              : AssetImage("Images/user.png"))),
                 ),
                 onTap: () {
-                  ImagePicker()
-                      .getImage(source: ImageSource.camera)
-                      .then((file) {
-                    if (file == null) {
-                      return;
-                    } else {
-                      setState(() {
-                        _contatoEditado.img = file.path;
-                      });
-                    }
-                  });
+                  _escolherImagem();
+                  // ImagePicker()
+                  //     .getImage(source: ImageSource.camera)
+                  //     .then((file) {
+                  //   if (file == null) {
+                  //     return;
+                  //   } else {
+                  //     setState(() {
+                  //       _contatoEditado.img = file.path;
+                  //     });
+                  //   }
+                  // });
                 },
               ),
               TextField(
@@ -154,5 +155,59 @@ class _ContatoPaginaState extends State<ContatoPagina> {
         ),
       ),
     );
+  }
+
+  void _escolherImagem() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(       
+            insetPadding: EdgeInsets.all(10),     
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SimpleDialogOption(
+                    child: Text("Câmera", style: TextStyle(fontSize: 20)),
+                    onPressed: () {
+                      ImagePicker()
+                          .getImage(source: ImageSource.camera)
+                          .then((file) {
+                        if (file == null) {
+                          return;
+                        } else {
+                          setState(() {
+                            _contatoEditado.img = file.path;
+                          });
+                        }
+                      });
+                      _usuarioEditou = true;
+                    },
+                  ),
+                  Divider(
+                    color: Colors.blue,
+                  ),
+                  SimpleDialogOption(
+                    child: Text("Escolher da Galeria", style: TextStyle(fontSize: 20)),
+                    onPressed: () {
+                      ImagePicker()
+                          .getImage(source: ImageSource.gallery)
+                          .then((file) {
+                        if (file == null) {
+                          return;
+                        } else {
+                          setState(() {
+                            _contatoEditado.img = file.path;
+                          });
+                        }
+                      });
+                      _usuarioEditou = true;
+                    },
+                  ),
+                ],
+              ),
+            ],
+          );
+        });
   }
 }

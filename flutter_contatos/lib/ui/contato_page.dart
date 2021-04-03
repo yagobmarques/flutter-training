@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contatos/entity/contato.dart';
 import 'package:image_picker/image_picker.dart';
@@ -149,7 +150,7 @@ class _ContatoPaginaState extends State<ContatoPagina> {
                   _usuarioEditou = true;
                   _contatoEditado.phone = text;
                 },
-              )
+              ),
             ],
           ),
         ),
@@ -182,6 +183,8 @@ class _ContatoPaginaState extends State<ContatoPagina> {
                         }
                       });
                       _usuarioEditou = true;
+                      Navigator.pop(context);
+
                     },
                   ),
                   Divider(
@@ -199,9 +202,10 @@ class _ContatoPaginaState extends State<ContatoPagina> {
                           setState(() {
                             _contatoEditado.img = file.path;
                           });
-                        }
+                        } 
                       });
                       _usuarioEditou = true;
+                      Navigator.pop(context);
                     },
                   ),
                 ],
